@@ -21,11 +21,17 @@ jobs:
         with:
           dotnet-version: '8.0.x'
 
-      - name: Restore dependencies
-        run: dotnet restore Docker_CICD_projekt.sln
+      - name: Restore App
+        run: dotnet restore PersonnummerKontrollApp.csproj
 
-      - name: Build
-        run: dotnet build Docker_CICD_projekt.sln --configuration Release
+      - name: Restore Tests
+        run: dotnet restore PersonnummerTests.csproj
+
+      - name: Build App
+        run: dotnet build PersonnummerKontrollApp.csproj --configuration Release
+
+      - name: Build Tests
+        run: dotnet build PersonnummerTests.csproj --configuration Release
 
       - name: Run tests
-        run: dotnet test Docker_CICD_projekt.sln --configuration Release --verbosity normal
+        run: dotnet test PersonnummerTests.csproj --configuration Release --verbosity normal
